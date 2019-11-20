@@ -24,9 +24,9 @@ int getSum(int n)
     return sum;
 }
 
-bool checkAbundant(int n)
+bool checkDeficient(int n)
 {
-    return getSum(n) > n;
+    return getSum(n) < n;
 }
 
 int main()
@@ -35,6 +35,6 @@ int main()
     printf(" Input an integer number: ");
     scanf("%d", &n);
 
-    checkAbundant(n)? printf(" The number is Abundant.\n") : printf("The number is not Abundant.\n");
+    checkDeficient(n)? printf(" The number is Deficient.\n") : printf("The number is not Deficient.\n");
     return 0;
 }
