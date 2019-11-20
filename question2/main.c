@@ -3,38 +3,42 @@
 #include <stdbool.h>
 #include <math.h>
 
-int getSum(int n)
+bool chkkaprekar(int n)
 {
-    int sum = 0;
-    for (int i=1; i<=sqrt(n); i++)
+    if(n==1)
+    return true;
+    int sqr_n = n * n;
+    int ctr_digits = 0;
+    while(sqr_n)
     {
-        if(n%i==0)
-        {
-            if(n/i == i)
-                sum = sum + i;
-            else
-            {
-                sum = sum + i;
-                sum = sum + (n / i);
-            }
-        }
-
+        ctr_digits++;
+        sqr_n /= 10;
     }
-    sum = sum - n;
-    return sum;
-}
+    sqr_n = n * n;
+    for(int r_digits=1; r_digits<ctr_digits; r_digits++)
+    {
+        int eq_parts = pow(10, r_digits);
 
-bool checkDeficient(int n)
-{
-    return getSum(n) < n;
+        if(eq_parts == n)
+            continue;
+        int sum = sqr_n / eq_parts + sqr_n % eq_parts;
+        if (sum == n)
+            return true;
+    }
+    return false;
 }
 
 int main()
 {
-    int n;
-    printf(" Input an integer number: ");
-    scanf("%d", &n);
-
-    checkDeficient(n)? printf(" The number is Deficient.\n") : printf("The number is not Deficient.\n");
-    return 0;
+    int kpno;
+    printf(" Input a number: ");
+    scanf("%d", &kpno);
+    if (chkkaprekar(kpno)==true)
+    {
+        printf("%d is a Kaprekar number. \n", kpno);
+    }
+    else
+    {
+        printf("%d is not a Kaprekar number. \n", kpno);
+    }
 }
