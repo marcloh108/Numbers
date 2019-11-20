@@ -3,39 +3,30 @@
 #include <stdbool.h>
 #include <math.h>
 
-int SumOfSquNum(int givno)
-{
-    int SumOfSqr = 0;
-    while(givno)
-    {
-        SumOfSqr += (givno % 10) * (givno % 10);
-        givno /= 10;
-    }
-    return SumOfSqr;
-}
-bool checkHappy(int chkhn)
+
+bool chkAutomor(int num1)
 {
 
-    int slno, fstno;
-    slno = fstno = chkhn;
-    do
+    int sqno = num1 * num1;
+    while (num1 > 0)
     {
-        slno = SumOfSquNum(slno);
-        fstno = SumOfSquNum(SumOfSquNum(fstno));
+        if (num1 % 10 != sqno % 10)
+            return false;
+        num1 /= 10;
+        sqno /= 10;
     }
-    while(slno != fstno);
-    return (slno == 1);
+    return true;
 }
 
 int main()
 {
-    int j, ctr;
-    printf(" The happy numbers between 1 to 1000 are: ");
+    int i;
+    printf(" The Authomorphic numbers are: ");
 
-    for(j=1;j<=1000;j++)
+    for(i=1;i<=1000;i++)
     {
-        if(checkHappy(j))
-            printf("%d ", j);
+        if(chkAutomor(i))
+            printf("%d ", i);
     }
     printf("\n");
 }
