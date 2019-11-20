@@ -3,42 +3,39 @@
 #include <stdbool.h>
 #include <math.h>
 
-bool chkkaprekar(int n)
+int SumOfSquNum(int givno)
 {
-    if(n==1)
-    return true;
-    int sqr_n = n * n;
-    int ctr_digits = 0;
-    while(sqr_n)
+    int SumOfSqr = 0;
+    while(givno)
     {
-        ctr_digits++;
-        sqr_n /= 10;
+        SumOfSqr += (givno % 10) * (givno % 10);
+        givno /= 10;
     }
-    sqr_n = n * n;
-    for(int r_digits=1; r_digits<ctr_digits; r_digits++)
-    {
-        int eq_parts = pow(10, r_digits);
+    return SumOfSqr;
+}
+bool checkHappy(int chkhn)
+{
 
-        if(eq_parts == n)
-            continue;
-        int sum = sqr_n / eq_parts + sqr_n % eq_parts;
-        if (sum == n)
-            return true;
+    int slno, fstno;
+    slno = fstno = chkhn;
+    do
+    {
+        slno = SumOfSquNum(slno);
+        fstno = SumOfSquNum(SumOfSquNum(fstno));
     }
-    return false;
+    while(slno != fstno);
+    return (slno == 1);
 }
 
 int main()
 {
-    int kpno;
-    printf(" Input a number: ");
-    scanf("%d", &kpno);
-    if (chkkaprekar(kpno)==true)
+    int j, ctr;
+    printf(" The happy numbers between 1 to 1000 are: ");
+
+    for(j=1;j<=1000;j++)
     {
-        printf("%d is a Kaprekar number. \n", kpno);
+        if(checkHappy(j))
+            printf("%d ", j);
     }
-    else
-    {
-        printf("%d is not a Kaprekar number. \n", kpno);
-    }
+    printf("\n");
 }
